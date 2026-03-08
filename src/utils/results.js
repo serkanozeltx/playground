@@ -50,13 +50,13 @@ export async function postResultsToGoogleSheets(results) {
     return { ok: false, reason: 'MISSING_ENDPOINT' };
   }
 
+  const payload = JSON.stringify({ rows: results });
+
   try {
     const response = await fetch(webAppUrl, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ rows: results }),
+      // Intentionally omit custom headers to reduce CORS/preflight issues with Apps Script web apps.
+      body: payload,
     });
 
     if (!response.ok) {
@@ -65,6 +65,16 @@ export async function postResultsToGoogleSheets(results) {
 
     return { ok: true };
   } catch (error) {
-    return { ok: false, reason: error?.message ?? 'UNKNOWN_ERROR' };
+    // Fallback for endpoints that do not allow CORS response reads but still accept writes.
+    try {
+      await fetch(webAppUrl, {
+        method: 'POST',
+        mode: 'no-cors',
+        body: payload,
+      });
+      return { ok: true, reason: 'SENT_NO_CORS' };
+    } catch (fallbackError) {
+      return { ok: false, reason: fallbackError?.message ?? error?.message ?? 'UNKNOWN_ERROR' };
+    }
   }
 }
