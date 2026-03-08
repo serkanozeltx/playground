@@ -8,7 +8,7 @@ function StimulusChip({ token }) {
 
   return (
     <div className="stimulus-chip" aria-label={item.label}>
-      <span className="stimulus-chip-emoji" aria-hidden="true">
+      <span className="stimulus-chip-emoji" aria-hidden="true" style={{ filter: item.emojiFilter }}>
         {item.emoji}
       </span>
     </div>

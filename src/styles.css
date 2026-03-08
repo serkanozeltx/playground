@@ -142,6 +142,12 @@ select {
   touch-action: manipulation;
 }
 
+.button-icon,
+.cta-button > span[aria-hidden='true'] {
+  font-size: clamp(1.3rem, 3.4vw, 1.9rem);
+  line-height: 1;
+}
+
 .cta-button:disabled {
   opacity: 0.35;
 }
@@ -417,13 +423,27 @@ select {
 .confirm-button {
   border: 0;
   border-radius: 18px;
-  min-height: 72px;
+  min-height: 84px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 9px;
+  gap: 12px;
   font-weight: 900;
   font-size: clamp(0.96rem, 2.2vw, 1.1rem);
+}
+
+.confirm-icon-bubble {
+  width: clamp(36px, 5vw, 46px);
+  height: clamp(36px, 5vw, 46px);
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.confirm-icon {
+  font-size: clamp(1.3rem, 2.9vw, 1.8rem);
+  line-height: 1;
 }
 
 .confirm-back {
@@ -434,6 +454,10 @@ select {
 .confirm-next {
   background: linear-gradient(155deg, var(--boun-blue) 0%, #2d84d5 100%);
   color: #ffffff;
+}
+
+.confirm-next .confirm-icon-bubble {
+  background: rgba(255, 255, 255, 0.22);
 }
 
 .practice-feedback {

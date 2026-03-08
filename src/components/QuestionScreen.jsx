@@ -165,7 +165,7 @@ export default function QuestionScreen({
 
         {stage === 'preview' ? (
           <button type="button" className="cta-button ready-button" onClick={handleReady}>
-            <span aria-hidden="true">👆</span>
+            <span className="button-icon" aria-hidden="true">👆</span>
             <span>I am Ready</span>
           </button>
         ) : null}
@@ -194,7 +194,7 @@ export default function QuestionScreen({
           >
             <p>{practiceFeedback.isCorrect ? 'Correct!' : 'Not this one. Let us continue.'}</p>
             <button type="button" className="cta-button feedback-button" onClick={handlePracticeContinue}>
-              <span aria-hidden="true">➡</span>
+              <span className="button-icon" aria-hidden="true">👉</span>
               <span>Continue</span>
             </button>
           </div>
@@ -207,7 +207,7 @@ export default function QuestionScreen({
             onClick={openConfirm}
             disabled={!canSubmit}
           >
-            <span aria-hidden="true">➡</span>
+            <span className="button-icon" aria-hidden="true">👉</span>
             <span>Next</span>
           </button>
         ) : null}
@@ -218,11 +218,15 @@ export default function QuestionScreen({
               <p className="confirm-title">Is this your answer?</p>
               <div className="confirm-actions">
                 <button type="button" className="confirm-button confirm-back" onClick={() => setShowConfirm(false)}>
-                  <span aria-hidden="true">👀</span>
+                  <span className="confirm-icon-bubble" aria-hidden="true">
+                    <span className="confirm-icon">🔍</span>
+                  </span>
                   <span>Check Again</span>
                 </button>
                 <button type="button" className="confirm-button confirm-next" onClick={handleSubmit}>
-                  <span aria-hidden="true">✅</span>
+                  <span className="confirm-icon-bubble" aria-hidden="true">
+                    <span className="confirm-icon">🚀</span>
+                  </span>
                   <span>Yes, Next</span>
                 </button>
               </div>

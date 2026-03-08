@@ -57,11 +57,11 @@ export const QUESTION_POOL = {
   C1: [
     {
       id: 'T_C1_ABB',
-      pattern: ['A', 'B', 'B', 'A', 'B', 'B'],
+      pattern: ['comb', 'scissors', 'scissors', 'comb', 'scissors', 'scissors'],
       options: [
-        ['S', 'C', 'C', 'S', 'C', 'C'],
-        ['S', 'S', 'C', 'S', 'S', 'C'],
-        ['S', 'C', 'S', 'S', 'C', 'S'],
+        ['Square', 'Triangle', 'Square', 'Square', 'Triangle', 'Square'],
+        ['Circle', 'Square', 'Square', 'Circle', 'Square', 'Square'],
+        ['Circle', 'Square', 'Triangle', 'Circle', 'Square', 'Triangle'],
       ],
     },
     {
@@ -77,20 +77,27 @@ export const QUESTION_POOL = {
   C2: [
     {
       id: 'T_C2_ABB',
-      pattern: ['A', 'B', 'B', 'A', 'B', 'B'],
+      pattern: ['Banana', 'Watermelon', 'Watermelon', 'Banana', 'Watermelon', 'Watermelon'],
       options: [
-        ['S', 'C', 'C', 'S', 'C', 'C'],
-        ['S', 'S', 'C', 'S', 'S', 'C'],
-        ['C', 'S', 'S', 'C', 'S', 'S'],
+        ['Triangle', 'Square', 'Square', 'Triangle', 'Square', 'Square'],
+        ['Triangle', 'Circle', 'Square', 'Triangle', 'Circle', 'Square'],
+        ['Triangle', 'Square', 'Triangle', 'Triangle', 'Square', 'Triangle'],
       ],
     },
     {
       id: 'T_C2_ABC',
-      pattern: ['A', 'B', 'C', 'A', 'B', 'C'],
+      pattern: [
+        'Orange baseballcap',
+        'Green baseballcap',
+        'Purple baseballcap',
+        'Orange baseballcap',
+        'Green baseballcap',
+        'Purple baseballcap',
+      ],
       options: [
-        ['S', 'C', 'T', 'S', 'C', 'T'],
-        ['S', 'C', 'S', 'S', 'C', 'S'],
-        ['T', 'C', 'S', 'T', 'C', 'S'],
+        ['Square', 'Triangle', 'Square', 'Triangle', 'Square', 'Triangle'],
+        ['Circle', 'Triangle', 'Square', 'Circle', 'Triangle', 'Square'],
+        ['Square', 'Square', 'Square', 'Square', 'Square', 'Square'],
       ],
     },
   ],
@@ -160,6 +167,25 @@ export const STIMULUS_TOKENS = {
   B: { emoji: '🐢', label: 'Turtle' },
   C: { emoji: '🦀', label: 'Crab' },
   D: { emoji: '🐬', label: 'Dolphin' },
+  Banana: { emoji: '🍌', label: 'Banana' },
+  Watermelon: { emoji: '🍉', label: 'Watermelon' },
+  comb: { emoji: '🪮', label: 'Comb' },
+  scissors: { emoji: '✂️', label: 'Scissors' },
+  'Orange baseballcap': {
+    emoji: '🧢',
+    emojiFilter: 'invert(62%) sepia(66%) saturate(1331%) hue-rotate(342deg) brightness(101%) contrast(98%)',
+    label: 'Orange baseballcap',
+  },
+  'Green baseballcap': {
+    emoji: '🧢',
+    emojiFilter: 'invert(47%) sepia(55%) saturate(846%) hue-rotate(96deg) brightness(95%) contrast(92%)',
+    label: 'Green baseballcap',
+  },
+  'Purple baseballcap': {
+    emoji: '🧢',
+    emojiFilter: 'invert(44%) sepia(49%) saturate(1088%) hue-rotate(236deg) brightness(93%) contrast(95%)',
+    label: 'Purple baseballcap',
+  },
 };
 
 const MODE_META = {
