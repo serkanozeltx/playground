@@ -39,6 +39,7 @@ export default function QuestionScreen({
   const [answerShownAt, setAnswerShownAt] = useState(question.isMemory ? null : Date.now());
   const [readyReactionTime, setReadyReactionTime] = useState(null);
   const [practiceFeedback, setPracticeFeedback] = useState(null);
+  const [showConfirm, setShowConfirm] = useState(false);
 
   useEffect(() => {
     const now = Date.now();
@@ -50,6 +51,7 @@ export default function QuestionScreen({
     setAnswerShownAt(question.isMemory ? null : now);
     setReadyReactionTime(null);
     setPracticeFeedback(null);
+    setShowConfirm(false);
   }, [question.id, question.isMemory, question.pattern.length]);
 
   const canSubmit = useMemo(
@@ -106,6 +108,7 @@ export default function QuestionScreen({
       return;
     }
 
+    setShowConfirm(false);
     const payload = buildTimingPayload(false);
 
     if (question.isPractice) {
@@ -128,7 +131,15 @@ export default function QuestionScreen({
   }
 
   function handleSkip() {
+    setShowConfirm(false);
     onComplete(buildTimingPayload(true));
+  }
+
+  function openConfirm() {
+    if (!canSubmit) {
+      return;
+    }
+    setShowConfirm(true);
   }
 
   return (
@@ -193,12 +204,30 @@ export default function QuestionScreen({
           <button
             type="button"
             className="cta-button next-button"
-            onClick={handleSubmit}
+            onClick={openConfirm}
             disabled={!canSubmit}
           >
             <span aria-hidden="true">➡</span>
             <span>Next</span>
           </button>
+        ) : null}
+
+        {showConfirm ? (
+          <div className="confirm-overlay" role="dialog" aria-modal="true" aria-label="Confirm answer">
+            <div className="confirm-panel">
+              <p className="confirm-title">Is this your answer?</p>
+              <div className="confirm-actions">
+                <button type="button" className="confirm-button confirm-back" onClick={() => setShowConfirm(false)}>
+                  <span aria-hidden="true">👀</span>
+                  <span>Check Again</span>
+                </button>
+                <button type="button" className="confirm-button confirm-next" onClick={handleSubmit}>
+                  <span aria-hidden="true">✅</span>
+                  <span>Yes, Next</span>
+                </button>
+              </div>
+            </div>
+          </div>
         ) : null}
       </section>
     </main>
