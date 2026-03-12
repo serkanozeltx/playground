@@ -4,6 +4,11 @@ import MultipleChoiceOptions from './MultipleChoiceOptions';
 import DndResponseBoard from './DndResponseBoard';
 import { checkPatternIsomorphism, normalizeResponseArray } from '../utils/pattern';
 
+const NEXT_ICON_SRC = '/icons/patterns/next.svg';
+const READY_ICON_SRC = '/icons/patterns/ready.svg';
+const CHECK_ICON_SRC = '/icons/patterns/check.svg';
+const STOP_ICON_SRC = '/icons/patterns/stop.svg';
+
 function ProgressLabel({ current, total, isPractice }) {
   return (
     <div className="progress-label" role="status" aria-live="polite">
@@ -164,9 +169,8 @@ export default function QuestionScreen({
         </div>
 
         {stage === 'preview' ? (
-          <button type="button" className="cta-button ready-button" onClick={handleReady}>
-            <span className="button-icon" aria-hidden="true">👆</span>
-            <span>I am Ready</span>
+          <button type="button" className="cta-button ready-button icon-only-button" onClick={handleReady} aria-label="I am ready">
+            <img className="button-icon action-icon" src={READY_ICON_SRC} alt="" aria-hidden="true" draggable="false" />
           </button>
         ) : null}
 
@@ -193,9 +197,13 @@ export default function QuestionScreen({
             aria-live="polite"
           >
             <p>{practiceFeedback.isCorrect ? 'Correct!' : 'Not this one. Let us continue.'}</p>
-            <button type="button" className="cta-button feedback-button" onClick={handlePracticeContinue}>
-              <span className="button-icon" aria-hidden="true">👉</span>
-              <span>Continue</span>
+            <button
+              type="button"
+              className="cta-button feedback-button icon-only-button"
+              onClick={handlePracticeContinue}
+              aria-label="Continue"
+            >
+              <img className="button-icon action-icon" src={NEXT_ICON_SRC} alt="" aria-hidden="true" draggable="false" />
             </button>
           </div>
         ) : null}
@@ -203,12 +211,12 @@ export default function QuestionScreen({
         {stage === 'answer' && !practiceFeedback ? (
           <button
             type="button"
-            className="cta-button next-button"
+            className="cta-button next-button icon-only-button"
             onClick={openConfirm}
             disabled={!canSubmit}
+            aria-label="Next"
           >
-            <span className="button-icon" aria-hidden="true">👉</span>
-            <span>Next</span>
+            <img className="button-icon action-icon" src={NEXT_ICON_SRC} alt="" aria-hidden="true" draggable="false" />
           </button>
         ) : null}
 
@@ -217,17 +225,25 @@ export default function QuestionScreen({
             <div className="confirm-panel">
               <p className="confirm-title">Is this your answer?</p>
               <div className="confirm-actions">
-                <button type="button" className="confirm-button confirm-back" onClick={() => setShowConfirm(false)}>
+                <button
+                  type="button"
+                  className="confirm-button confirm-back icon-only-confirm"
+                  onClick={() => setShowConfirm(false)}
+                  aria-label="Check again"
+                >
                   <span className="confirm-icon-bubble" aria-hidden="true">
-                    <span className="confirm-icon">🔍</span>
+                    <img className="confirm-action-icon" src={STOP_ICON_SRC} alt="" aria-hidden="true" draggable="false" />
                   </span>
-                  <span>Check Again</span>
                 </button>
-                <button type="button" className="confirm-button confirm-next" onClick={handleSubmit}>
+                <button
+                  type="button"
+                  className="confirm-button confirm-next icon-only-confirm"
+                  onClick={handleSubmit}
+                  aria-label="Yes, next"
+                >
                   <span className="confirm-icon-bubble" aria-hidden="true">
-                    <span className="confirm-icon">🚀</span>
+                    <img className="confirm-action-icon" src={CHECK_ICON_SRC} alt="" aria-hidden="true" draggable="false" />
                   </span>
-                  <span>Yes, Next</span>
                 </button>
               </div>
             </div>

@@ -148,6 +148,20 @@ select {
   line-height: 1;
 }
 
+.action-icon {
+  width: clamp(36px, 7vw, 70px);
+  height: clamp(36px, 7vw, 70px);
+  object-fit: contain;
+  display: block;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.icon-only-button {
+  min-width: clamp(84px, 15vw, 150px);
+  padding: 0 16px;
+}
+
 .cta-button:disabled {
   opacity: 0.35;
 }
@@ -233,6 +247,21 @@ select {
 .stimulus-chip-emoji {
   font-size: var(--token-icon-size);
   line-height: 1;
+}
+
+.stimulus-chip-pencil {
+  width: calc(var(--token-icon-size) * 0.95);
+  height: calc(var(--token-icon-size) * 0.95);
+  display: block;
+}
+
+.stimulus-chip-image {
+  width: calc(var(--token-icon-size) * 1.1);
+  height: calc(var(--token-icon-size) * 1.1);
+  object-fit: contain;
+  display: block;
+  user-select: none;
+  -webkit-user-drag: none;
 }
 
 .stimulus-hidden {
@@ -432,18 +461,26 @@ select {
   font-size: clamp(0.96rem, 2.2vw, 1.1rem);
 }
 
+.icon-only-confirm {
+  gap: 0;
+}
+
 .confirm-icon-bubble {
-  width: clamp(36px, 5vw, 46px);
-  height: clamp(36px, 5vw, 46px);
+  width: clamp(36px, 5vw, 70px);
+  height: clamp(36px, 5vw, 70px);
   border-radius: 999px;
   display: grid;
   place-items: center;
   background: rgba(255, 255, 255, 0.9);
 }
 
-.confirm-icon {
-  font-size: clamp(1.3rem, 2.9vw, 1.8rem);
-  line-height: 1;
+.confirm-action-icon {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  user-select: none;
+  -webkit-user-drag: none;
 }
 
 .confirm-back {
