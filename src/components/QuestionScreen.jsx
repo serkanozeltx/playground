@@ -160,65 +160,71 @@ export default function QuestionScreen({
           isPractice={question.isPractice}
         />
 
-        <div className="stimulus-wrap">
-          <StimulusSequence
-            pattern={question.pattern}
-            orientation={question.orientation}
-            hidden={question.isMemory && stage === 'answer'}
-          />
-        </div>
-
-        {stage === 'preview' ? (
-          <button type="button" className="cta-button ready-button icon-only-button" onClick={handleReady} aria-label="I am ready">
-            <img className="button-icon action-icon" src={READY_ICON_SRC} alt="" aria-hidden="true" draggable="false" />
-          </button>
-        ) : null}
-
-        {stage === 'answer' && question.responseType === 'mc' ? (
-          <MultipleChoiceOptions
-            options={question.options}
-            selectedIndex={selectedOptionIndex}
-            onSelect={setSelectedOptionIndex}
-          />
-        ) : null}
-
-        {stage === 'answer' && question.responseType === 'dnd' ? (
-          <DndResponseBoard
-            answers={dndAnswers}
-            onChange={setDndAnswers}
-            orientation="horizontal"
-          />
-        ) : null}
-
-        {practiceFeedback ? (
-          <div
-            className={`practice-feedback ${practiceFeedback.isCorrect ? 'is-correct' : 'is-incorrect'}`}
-            role="status"
-            aria-live="polite"
-          >
-            <p>{practiceFeedback.isCorrect ? 'Correct!' : 'Not this one. Let us continue.'}</p>
-            <button
-              type="button"
-              className="cta-button feedback-button icon-only-button"
-              onClick={handlePracticeContinue}
-              aria-label="Continue"
-            >
-              <img className="button-icon action-icon" src={NEXT_ICON_SRC} alt="" aria-hidden="true" draggable="false" />
-            </button>
+        <div className="question-layout">
+          <div className="question-top-zone">
+            <div className="stimulus-wrap">
+              <StimulusSequence
+                pattern={question.pattern}
+                orientation={question.orientation}
+                hidden={question.isMemory && stage === 'answer'}
+              />
+            </div>
           </div>
-        ) : null}
 
-        {stage === 'answer' && !practiceFeedback ? (
-          <button
-            type="button"
-            className="cta-button next-button icon-only-button"
-            onClick={openConfirm}
-            disabled={!canSubmit}
-            aria-label="Next"
-          >
-            <img className="button-icon action-icon" src={NEXT_ICON_SRC} alt="" aria-hidden="true" draggable="false" />
-          </button>
-        ) : null}
+          <div className="question-bottom-zone">
+            {stage === 'preview' ? (
+              <button type="button" className="cta-button ready-button icon-only-button" onClick={handleReady} aria-label="I am ready">
+                <img className="button-icon action-icon" src={READY_ICON_SRC} alt="" aria-hidden="true" draggable="false" />
+              </button>
+            ) : null}
+
+            {stage === 'answer' && question.responseType === 'mc' ? (
+              <MultipleChoiceOptions
+                options={question.options}
+                selectedIndex={selectedOptionIndex}
+                onSelect={setSelectedOptionIndex}
+              />
+            ) : null}
+
+            {stage === 'answer' && question.responseType === 'dnd' ? (
+              <DndResponseBoard
+                answers={dndAnswers}
+                onChange={setDndAnswers}
+                orientation="horizontal"
+              />
+            ) : null}
+
+            {practiceFeedback ? (
+              <div
+                className={`practice-feedback ${practiceFeedback.isCorrect ? 'is-correct' : 'is-incorrect'}`}
+                role="status"
+                aria-live="polite"
+              >
+                <p>{practiceFeedback.isCorrect ? 'Correct!' : 'Not this one. Let us continue.'}</p>
+                <button
+                  type="button"
+                  className="cta-button feedback-button icon-only-button"
+                  onClick={handlePracticeContinue}
+                  aria-label="Continue"
+                >
+                  <img className="button-icon action-icon" src={NEXT_ICON_SRC} alt="" aria-hidden="true" draggable="false" />
+                </button>
+              </div>
+            ) : null}
+
+            {stage === 'answer' && !practiceFeedback ? (
+              <button
+                type="button"
+                className="cta-button next-button icon-only-button"
+                onClick={openConfirm}
+                disabled={!canSubmit}
+                aria-label="Next"
+              >
+                <img className="button-icon action-icon" src={NEXT_ICON_SRC} alt="" aria-hidden="true" draggable="false" />
+              </button>
+            ) : null}
+          </div>
+        </div>
 
         {showConfirm ? (
           <div className="confirm-overlay" role="dialog" aria-modal="true" aria-label="Confirm answer">

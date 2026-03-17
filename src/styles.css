@@ -53,7 +53,9 @@ select {
 }
 
 .page-question {
-  padding: 10px;
+  min-height: 100dvh;
+  padding: 8px;
+  overflow: hidden;
 }
 
 .card {
@@ -169,11 +171,37 @@ select {
 .question-card {
   width: min(100%, 1400px);
   max-width: 1400px;
+  height: min(calc(100dvh - 16px), 980px);
+  max-height: calc(100dvh - 16px);
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  padding: 14px 16px 16px;
+  gap: 8px;
+  padding: 12px 14px 14px;
+  overflow: hidden;
+}
+
+.question-layout {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: clamp(18px, 6vh, 72px);
+}
+
+.question-top-zone {
+  flex: 0 1 auto;
+  min-height: 0;
+}
+
+.question-bottom-zone {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: clamp(10px, 2.2vh, 18px);
 }
 
 .skip-button {
@@ -220,6 +248,7 @@ select {
   border-radius: 24px;
   background: #fcfeff;
   padding: 12px;
+  flex-shrink: 0;
 }
 
 .stimulus-sequence {
@@ -275,7 +304,7 @@ select {
 }
 
 .mc-options-grid {
-  margin-top: 4px;
+  margin-top: 0;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
   gap: 8px;
@@ -320,7 +349,7 @@ select {
 }
 
 .dnd-shell {
-  margin-top: 4px;
+  margin-top: 0;
   display: grid;
   gap: 8px;
 }
@@ -412,7 +441,8 @@ select {
 
 .next-button,
 .ready-button {
-  margin-top: 4px;
+  margin-top: 0;
+  align-self: center;
 }
 
 .confirm-overlay {
@@ -523,6 +553,7 @@ select {
 
 .feedback-button {
   margin-top: 8px;
+  align-self: center;
 }
 
 .transition-card {
@@ -575,6 +606,11 @@ select {
     padding: 16px;
   }
 
+  .question-card {
+    height: min(calc(100dvh - 16px), 940px);
+    padding: 12px;
+  }
+
   .shape-palette {
     gap: 12px;
   }
@@ -585,6 +621,20 @@ select {
 }
 
 @media (max-width: 600px) {
+  .page-question {
+    padding: 6px;
+  }
+
+  .question-card {
+    height: calc(100dvh - 12px);
+    max-height: calc(100dvh - 12px);
+    padding: 10px;
+  }
+
+  .question-layout {
+    gap: clamp(12px, 3.5vh, 28px);
+  }
+
   .mc-options-grid {
     grid-template-columns: 1fr;
   }
