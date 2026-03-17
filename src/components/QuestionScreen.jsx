@@ -8,6 +8,7 @@ const NEXT_ICON_SRC = '/icons/patterns/next.svg';
 const READY_ICON_SRC = '/icons/patterns/ready.svg';
 const CHECK_ICON_SRC = '/icons/patterns/check.svg';
 const STOP_ICON_SRC = '/icons/patterns/stop.svg';
+const MEMORY_READY_DELAY_MS = 5000;
 
 function ProgressLabel({ current, total, isPractice }) {
   return (
@@ -45,6 +46,7 @@ export default function QuestionScreen({
   const [readyReactionTime, setReadyReactionTime] = useState(null);
   const [practiceFeedback, setPracticeFeedback] = useState(null);
   const [showConfirm, setShowConfirm] = useState(false);
+  const [showReadyButton, setShowReadyButton] = useState(!question.isMemory);
 
   useEffect(() => {
     const now = Date.now();
@@ -57,7 +59,22 @@ export default function QuestionScreen({
     setReadyReactionTime(null);
     setPracticeFeedback(null);
     setShowConfirm(false);
+    setShowReadyButton(!question.isMemory);
   }, [question.id, question.isMemory, question.pattern.length]);
+
+  useEffect(() => {
+    if (!question.isMemory) {
+      return undefined;
+    }
+
+    const timer = window.setTimeout(() => {
+      setShowReadyButton(true);
+    }, MEMORY_READY_DELAY_MS);
+
+    return () => {
+      window.clearTimeout(timer);
+    };
+  }, [question.id, question.isMemory]);
 
   const canSubmit = useMemo(
     () =>
@@ -173,9 +190,13 @@ export default function QuestionScreen({
 
           <div className="question-bottom-zone">
             {stage === 'preview' ? (
-              <button type="button" className="cta-button ready-button icon-only-button" onClick={handleReady} aria-label="I am ready">
-                <img className="button-icon action-icon" src={READY_ICON_SRC} alt="" aria-hidden="true" draggable="false" />
-              </button>
+              showReadyButton ? (
+                <button type="button" className="cta-button ready-button icon-only-button" onClick={handleReady} aria-label="I am ready">
+                  <img className="button-icon action-icon" src={READY_ICON_SRC} alt="" aria-hidden="true" draggable="false" />
+                </button>
+              ) : (
+                <div className="ready-button-placeholder" aria-hidden="true" />
+              )
             ) : null}
 
             {stage === 'answer' && question.responseType === 'mc' ? (

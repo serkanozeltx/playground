@@ -445,6 +445,13 @@ select {
   align-self: center;
 }
 
+.ready-button-placeholder {
+  min-width: clamp(84px, 15vw, 150px);
+  min-height: 62px;
+  align-self: center;
+  flex-shrink: 0;
+}
+
 .confirm-overlay {
   position: absolute;
   inset: 0;
