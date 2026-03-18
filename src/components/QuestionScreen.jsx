@@ -6,8 +6,8 @@ import { checkPatternIsomorphism, normalizeResponseArray } from '../utils/patter
 
 const NEXT_ICON_SRC = '/icons/patterns/next.svg';
 const READY_ICON_SRC = '/icons/patterns/ready.svg';
-const CHECK_ICON_SRC = '/icons/patterns/check.svg';
-const STOP_ICON_SRC = '/icons/patterns/stop.svg';
+const CHECK_ICON_SRC = '/icons/patterns/fb_yes.png';
+const STOP_ICON_SRC = '/icons/patterns/fb_no.png';
 const MEMORY_READY_DELAY_MS = 5000;
 
 function ProgressLabel({ current, total, isPractice }) {
@@ -253,6 +253,7 @@ export default function QuestionScreen({
           <div className="confirm-overlay" role="dialog" aria-modal="true" aria-label="Confirm answer">
             <div className="confirm-panel">
               <p className="confirm-title">Is this your answer?</p>
+              <p className="confirm-subtitle">Are you ready to go to the next question?</p>
               <div className="confirm-actions">
                 <button
                   type="button"
