@@ -253,6 +253,21 @@ export const QUESTION_POOL = {
 
 export const LATIN_GROUP_IDS = Object.keys(LATIN_SQUARE_GROUPS);
 
+const TEST_COMPLEXITY_SEQUENCE = [
+  'ABB',
+  'ABC',
+  'ABB',
+  'ABC',
+  'ABB',
+  'ABC',
+  'ABC',
+  'ABB',
+  'ABC',
+  'ABB',
+  'ABC',
+  'ABB',
+];
+
 export const RESPONSE_SHAPES = [
   { id: 'square', label: 'Square', symbol: '■', color: '#004990' },
   { id: 'circle', label: 'Circle', symbol: '●', color: '#004990' },
@@ -392,6 +407,18 @@ function cloneOptions(options) {
   return options?.map((option) => [...option]);
 }
 
+function getComplexityForTestIndex(index) {
+  return TEST_COMPLEXITY_SEQUENCE[index] ?? TEST_COMPLEXITY_SEQUENCE[index % TEST_COMPLEXITY_SEQUENCE.length];
+}
+
+function findQuestionTemplate(conditionCode, complexity) {
+  const questionSet = QUESTION_POOL[conditionCode] ?? [];
+  return (
+    questionSet.find((template) => template.id.endsWith(`_${complexity}`)) ??
+    questionSet[0]
+  );
+}
+
 function buildPracticeQuestions() {
   return PRACTICE_QUESTIONS.map((question, index) => {
     const meta = normalizeMode(question.mode);
@@ -413,25 +440,21 @@ function buildPracticeQuestions() {
 
 export function buildTestQuestionsForGroup(groupID) {
   const sequence = LATIN_SQUARE_GROUPS[groupID] ?? LATIN_SQUARE_GROUPS.A;
-  const perCodeCount = {};
 
   return sequence.map((conditionCode, index) => {
-    const questionSet = QUESTION_POOL[conditionCode];
-    const seenCount = perCodeCount[conditionCode] ?? 0;
-    const selectedTemplate = questionSet[seenCount % questionSet.length];
-
-    perCodeCount[conditionCode] = seenCount + 1;
-
+    const complexity = getComplexityForTestIndex(index);
+    const selectedTemplate = findQuestionTemplate(conditionCode, complexity);
     const conditionMeta = CONDITION_META_BY_CODE[conditionCode];
 
     return {
-      id: `${selectedTemplate.id}_${seenCount + 1}_${index + 1}`,
+      id: `${selectedTemplate.id}_${index + 1}`,
       sourceQuestionId: selectedTemplate.id,
       order: index + 5,
       conditionCode,
       conditionType: CONDITION_CODES[conditionCode],
       isPractice: false,
       prompt: 'Find the matching pattern',
+      patternComplexity: complexity,
       pattern: [...selectedTemplate.pattern],
       options: cloneOptions(selectedTemplate.options),
       ...conditionMeta,
