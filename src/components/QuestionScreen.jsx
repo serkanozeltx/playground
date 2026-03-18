@@ -10,11 +10,11 @@ const CHECK_ICON_SRC = '/icons/patterns/fb_yes.png';
 const STOP_ICON_SRC = '/icons/patterns/fb_no.png';
 const MEMORY_READY_DELAY_MS = 5000;
 
-function ProgressLabel({ current, total, isPractice }) {
+function ProgressLabel({ current, total, isPractice, copy }) {
   return (
     <div className="progress-label" role="status" aria-live="polite">
       <span>
-        {isPractice ? 'Practice' : 'Test'} {current} / {total}
+        {isPractice ? copy.question.practice : copy.question.test} {current} / {total}
       </span>
     </div>
   );
@@ -33,6 +33,7 @@ function responseReady(question, selectedOptionIndex, dndAnswers, stage) {
 }
 
 export default function QuestionScreen({
+  copy,
   question,
   questionIndex,
   totalQuestions,
@@ -168,13 +169,14 @@ export default function QuestionScreen({
     <main className="page page-question">
       <section className="card question-card">
         <button type="button" className="skip-button" onClick={handleSkip}>
-          Skip
+          {copy.question.skip}
         </button>
 
         <ProgressLabel
           current={questionIndex + 1}
           total={totalQuestions}
           isPractice={question.isPractice}
+          copy={copy}
         />
 
         <div className="question-layout">
@@ -184,6 +186,7 @@ export default function QuestionScreen({
                 pattern={question.pattern}
                 orientation={question.orientation}
                 hidden={question.isMemory && stage === 'answer'}
+                copy={copy}
               />
             </div>
           </div>
@@ -194,7 +197,7 @@ export default function QuestionScreen({
                 type="button"
                 className="cta-button ready-button icon-only-button"
                 onClick={handleReady}
-                aria-label="I am ready"
+                aria-label={copy.question.readyAria}
                 disabled={!isReadyButtonEnabled}
               >
                 <img className="button-icon action-icon" src={READY_ICON_SRC} alt="" aria-hidden="true" draggable="false" />
@@ -203,6 +206,7 @@ export default function QuestionScreen({
 
             {stage === 'answer' && question.responseType === 'mc' ? (
               <MultipleChoiceOptions
+                copy={copy}
                 options={question.options}
                 selectedIndex={selectedOptionIndex}
                 onSelect={setSelectedOptionIndex}
@@ -211,6 +215,7 @@ export default function QuestionScreen({
 
             {stage === 'answer' && question.responseType === 'dnd' ? (
               <DndResponseBoard
+                copy={copy}
                 answers={dndAnswers}
                 onChange={setDndAnswers}
                 orientation="horizontal"
@@ -219,17 +224,17 @@ export default function QuestionScreen({
 
             {practiceFeedback ? (
               <div
-                className={`practice-feedback ${practiceFeedback.isCorrect ? 'is-correct' : 'is-incorrect'}`}
-                role="status"
-                aria-live="polite"
+              className={`practice-feedback ${practiceFeedback.isCorrect ? 'is-correct' : 'is-incorrect'}`}
+              role="status"
+              aria-live="polite"
+            >
+              <p>{practiceFeedback.isCorrect ? copy.question.practiceCorrect : copy.question.practiceIncorrect}</p>
+              <button
+                type="button"
+                className="cta-button feedback-button icon-only-button"
+                onClick={handlePracticeContinue}
+                aria-label={copy.question.continueAria}
               >
-                <p>{practiceFeedback.isCorrect ? 'Correct!' : 'Not this one. Let us continue.'}</p>
-                <button
-                  type="button"
-                  className="cta-button feedback-button icon-only-button"
-                  onClick={handlePracticeContinue}
-                  aria-label="Continue"
-                >
                   <img className="button-icon action-icon" src={NEXT_ICON_SRC} alt="" aria-hidden="true" draggable="false" />
                 </button>
               </div>
@@ -241,7 +246,7 @@ export default function QuestionScreen({
                 className="cta-button next-button icon-only-button"
                 onClick={openConfirm}
                 disabled={!canSubmit}
-                aria-label="Next"
+                aria-label={copy.question.nextAria}
               >
                 <img className="button-icon action-icon" src={NEXT_ICON_SRC} alt="" aria-hidden="true" draggable="false" />
               </button>
@@ -250,16 +255,16 @@ export default function QuestionScreen({
         </div>
 
         {showConfirm ? (
-          <div className="confirm-overlay" role="dialog" aria-modal="true" aria-label="Confirm answer">
+          <div className="confirm-overlay" role="dialog" aria-modal="true" aria-label={copy.question.confirmDialogAria}>
             <div className="confirm-panel">
-              <p className="confirm-title">Is this your answer?</p>
-              <p className="confirm-subtitle">Are you ready to go to the next question?</p>
+              <p className="confirm-title">{copy.question.confirmTitle}</p>
+              <p className="confirm-subtitle">{copy.question.confirmSubtitle}</p>
               <div className="confirm-actions">
                 <button
                   type="button"
                   className="confirm-button confirm-back icon-only-confirm"
                   onClick={() => setShowConfirm(false)}
-                  aria-label="Check again"
+                  aria-label={copy.question.confirmBackAria}
                 >
                   <span className="confirm-icon-bubble" aria-hidden="true">
                     <img className="confirm-action-icon" src={STOP_ICON_SRC} alt="" aria-hidden="true" draggable="false" />
@@ -269,7 +274,7 @@ export default function QuestionScreen({
                   type="button"
                   className="confirm-button confirm-next icon-only-confirm"
                   onClick={handleSubmit}
-                  aria-label="Yes, next"
+                  aria-label={copy.question.confirmNextAria}
                 >
                   <span className="confirm-icon-bubble" aria-hidden="true">
                     <img className="confirm-action-icon" src={CHECK_ICON_SRC} alt="" aria-hidden="true" draggable="false" />

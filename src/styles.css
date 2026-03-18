@@ -70,6 +70,40 @@ select {
 .hero-card {
   max-width: 780px;
   text-align: center;
+  position: relative;
+}
+
+.language-switcher {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  display: inline-flex;
+  gap: 8px;
+  padding: 6px;
+  border-radius: 999px;
+  background: rgba(232, 241, 251, 0.95);
+  border: 1px solid #c7d9ef;
+}
+
+.language-button {
+  border: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  background: transparent;
+  transition: transform 140ms ease, background-color 140ms ease, box-shadow 140ms ease;
+}
+
+.language-button.is-active {
+  background: #ffffff;
+  box-shadow: 0 4px 12px rgba(29, 48, 72, 0.12);
+}
+
+.language-flag {
+  font-size: 1.5rem;
+  line-height: 1;
 }
 
 .lab-eyebrow {
@@ -614,6 +648,11 @@ select {
     padding: 16px;
   }
 
+  .language-switcher {
+    top: 12px;
+    right: 12px;
+  }
+
   .question-card {
     height: min(calc(100dvh - 16px), 940px);
     padding: 12px;
@@ -629,6 +668,11 @@ select {
 }
 
 @media (max-width: 600px) {
+  .language-switcher {
+    position: static;
+    margin: 0 auto 12px;
+  }
+
   .page-question {
     padding: 6px;
   }

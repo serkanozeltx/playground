@@ -11,13 +11,14 @@ import {
 import { CSS } from '@dnd-kit/utilities';
 import { RESPONSE_SHAPES } from '../data/experimentConfig';
 import ShapeIcon from './ShapeIcon';
+import { formatCopy } from '../i18n';
 
 const shapeByID = RESPONSE_SHAPES.reduce((acc, shape) => {
   acc[shape.id] = shape;
   return acc;
 }, {});
 
-function PaletteShape({ shape }) {
+function PaletteShape({ shape, copy }) {
   const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
     id: `palette-${shape.id}`,
     data: { shapeID: shape.id },
@@ -36,7 +37,7 @@ function PaletteShape({ shape }) {
       ref={setNodeRef}
       {...attributes}
       {...listeners}
-      aria-label={shape.label}
+      aria-label={copy.shapes[shape.id] ?? shape.label}
     >
       <span className="palette-shape-token" aria-hidden="true">
         <ShapeIcon shapeID={shape.id} />
@@ -45,10 +46,11 @@ function PaletteShape({ shape }) {
   );
 }
 
-function DropSlot({ index, value, onClear }) {
+function DropSlot({ index, value, onClear, copy }) {
   const slotID = `slot-${index}`;
   const { setNodeRef, isOver } = useDroppable({ id: slotID });
   const shape = value ? shapeByID[value] : null;
+  const shapeLabel = shape ? copy.shapes[shape.id] ?? shape.label : '';
 
   return (
     <button
@@ -60,7 +62,11 @@ function DropSlot({ index, value, onClear }) {
           onClear(index);
         }
       }}
-      aria-label={shape ? `${shape.label}. Tap to clear.` : `Empty slot ${index + 1}`}
+      aria-label={
+        shape
+          ? formatCopy(copy.dnd.slotFilled, { shape: shapeLabel })
+          : `${copy.dnd.emptySlot} ${index + 1}`
+      }
     >
       {shape ? (
         <span className="drop-slot-shape">
@@ -76,6 +82,7 @@ function DropSlot({ index, value, onClear }) {
 }
 
 export default function DndResponseBoard({
+  copy,
   answers,
   onChange,
   orientation = 'horizontal',
@@ -125,15 +132,15 @@ export default function DndResponseBoard({
   return (
     <div className="dnd-shell">
       <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
-        <div className="shape-palette" aria-label="Shape bank">
+        <div className="shape-palette" aria-label={copy.dnd.shapeBank}>
           {RESPONSE_SHAPES.map((shape) => (
-            <PaletteShape shape={shape} key={shape.id} />
+            <PaletteShape shape={shape} key={shape.id} copy={copy} />
           ))}
         </div>
 
         <div className={`drop-slot-grid slot-${orientation}`}>
           {answers.map((value, index) => (
-            <DropSlot index={index} value={value} key={index} onClear={clearSlot} />
+            <DropSlot index={index} value={value} key={index} onClear={clearSlot} copy={copy} />
           ))}
         </div>
       </DndContext>

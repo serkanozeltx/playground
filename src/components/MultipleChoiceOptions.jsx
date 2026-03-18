@@ -25,9 +25,9 @@ function OptionPreview({ tokens }) {
   );
 }
 
-export default function MultipleChoiceOptions({ options, selectedIndex, onSelect }) {
+export default function MultipleChoiceOptions({ copy, options, selectedIndex, onSelect }) {
   return (
-    <div className="mc-options-grid" role="list" aria-label="Answer options">
+    <div className="mc-options-grid" role="list" aria-label={copy.question.answerOptionsAria}>
       {options.map((option, index) => (
         <button
           type="button"

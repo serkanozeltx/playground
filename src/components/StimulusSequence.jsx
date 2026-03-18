@@ -45,11 +45,11 @@ function StimulusChip({ token }) {
   );
 }
 
-export default function StimulusSequence({ pattern, orientation = 'horizontal', hidden = false }) {
+export default function StimulusSequence({ pattern, orientation = 'horizontal', hidden = false, copy }) {
   if (hidden) {
     return (
       <div className="stimulus-hidden" role="status" aria-live="polite">
-        Pattern hidden. Choose the matching answer.
+        {copy.question.hiddenPattern}
       </div>
     );
   }
