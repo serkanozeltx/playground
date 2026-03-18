@@ -46,7 +46,7 @@ export default function QuestionScreen({
   const [readyReactionTime, setReadyReactionTime] = useState(null);
   const [practiceFeedback, setPracticeFeedback] = useState(null);
   const [showConfirm, setShowConfirm] = useState(false);
-  const [showReadyButton, setShowReadyButton] = useState(!question.isMemory);
+  const [isReadyButtonEnabled, setIsReadyButtonEnabled] = useState(!question.isMemory);
 
   useEffect(() => {
     const now = Date.now();
@@ -59,7 +59,7 @@ export default function QuestionScreen({
     setReadyReactionTime(null);
     setPracticeFeedback(null);
     setShowConfirm(false);
-    setShowReadyButton(!question.isMemory);
+    setIsReadyButtonEnabled(!question.isMemory);
   }, [question.id, question.isMemory, question.pattern.length]);
 
   useEffect(() => {
@@ -68,7 +68,7 @@ export default function QuestionScreen({
     }
 
     const timer = window.setTimeout(() => {
-      setShowReadyButton(true);
+      setIsReadyButtonEnabled(true);
     }, MEMORY_READY_DELAY_MS);
 
     return () => {
@@ -190,13 +190,15 @@ export default function QuestionScreen({
 
           <div className="question-bottom-zone">
             {stage === 'preview' ? (
-              showReadyButton ? (
-                <button type="button" className="cta-button ready-button icon-only-button" onClick={handleReady} aria-label="I am ready">
-                  <img className="button-icon action-icon" src={READY_ICON_SRC} alt="" aria-hidden="true" draggable="false" />
-                </button>
-              ) : (
-                <div className="ready-button-placeholder" aria-hidden="true" />
-              )
+              <button
+                type="button"
+                className="cta-button ready-button icon-only-button"
+                onClick={handleReady}
+                aria-label="I am ready"
+                disabled={!isReadyButtonEnabled}
+              >
+                <img className="button-icon action-icon" src={READY_ICON_SRC} alt="" aria-hidden="true" draggable="false" />
+              </button>
             ) : null}
 
             {stage === 'answer' && question.responseType === 'mc' ? (
