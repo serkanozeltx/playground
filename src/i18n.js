@@ -54,9 +54,9 @@ export const COPY = {
       star: 'Yıldız',
     },
     transition: {
-      title: 'Alıştırma bitti.',
-      subtitle: 'Şimdi sıra sende. Gerçek bölüm başlıyor.',
-      cta: 'Benim Turum',
+      title: 'Alıştırmaları ne kadar dikkatli yaptın!',
+      subtitle: 'Emeğine sağlık. Şimdi örüntülerin dünyasında harika şeyler keşfetme zamanı.',
+      cta: 'Haydi Keşfedelim!',
     },
     thankYou: {
       title: 'Harika İş!',
@@ -120,9 +120,9 @@ export const COPY = {
       star: 'Star',
     },
     transition: {
-      title: 'Practice is finished.',
-      subtitle: 'Now it is your turn. The real section is starting.',
-      cta: 'Start My Turn',
+      title: 'You paid such great attention during practice!',
+      subtitle: 'Thank you for your effort. Now it’s time to discover amazing things in the world of patterns.',
+      cta: 'Let’s Discover!',
     },
     thankYou: {
       title: 'Amazing Work!',
