@@ -95,8 +95,8 @@ export const QUESTION_POOL = {
       ],
       options: [
         ['Square', 'Triangle', 'Square', 'Square', 'Triangle', 'Square'],
-        ['Circle', 'Square', 'Square', 'Circle', 'Square', 'Square'],
         ['Circle', 'Square', 'Triangle', 'Circle', 'Square', 'Triangle'],
+        ['Circle', 'Square', 'Square', 'Circle', 'Square', 'Square'],
       ],
     },
     {
@@ -110,9 +110,9 @@ export const QUESTION_POOL = {
         'hor_mc_abc_apple',
       ],
       options: [
-        ['Square', 'Triangle', 'Square', 'Triangle', 'Square', 'Triangle'],
         ['Square', 'Circle', 'Triangle', 'Square', 'Circle', 'Triangle'],
         ['Square', 'Triangle', 'Triangle', 'Square', 'Triangle', 'Triangle'],
+        ['Square', 'Triangle', 'Square', 'Triangle', 'Square', 'Triangle'],
       ],
     },
   ],
@@ -146,7 +146,7 @@ export const QUESTION_POOL = {
       options: [
         ['Square', 'Triangle', 'Square', 'Triangle', 'Square', 'Triangle'],
         ['Circle', 'Triangle', 'Square', 'Circle', 'Triangle', 'Square'],
-        ['Square', 'Square', 'Square', 'Square', 'Square', 'Square'],
+        ['Triangle', 'Square', 'Square', 'Triangle', 'Square', 'Square'],
       ],
     },
   ],
@@ -162,9 +162,9 @@ export const QUESTION_POOL = {
         'mem_mc_abb_pencil_yellow',
       ],
       options: [
-        ['Square', 'Circle', 'Circle', 'Square', 'Circle', 'Circle'],
         ['Square', 'Circle', 'Triangle', 'Square', 'Circle', 'Triangle'],
-        ['Square', 'Square', 'Square', 'Square', 'Square', 'Square'],
+        ['Square', 'Circle', 'Circle', 'Square', 'Circle', 'Circle'],
+        ['Square', 'Triangle', 'Square', 'Triangle', 'Square', 'Triangle'],
       ],
     },
     {
@@ -178,9 +178,9 @@ export const QUESTION_POOL = {
         'mem_mc_blue_pants',
       ],
       options: [
-        ['Circle', 'Square', 'Triangle', 'Circle', 'Square', 'Triangle'],
-        ['Square', 'Square', 'Circle', 'Square', 'Square', 'Circle'],
-        ['Square', 'Circle', 'Square', 'Circle', 'Square', 'Circle'],
+        ['Square', 'Triangle', 'Square', 'Triangle', 'Square', 'Triangle'],
+        ['Circle', 'Square', 'Square', 'Circle', 'Square', 'Square'],
+        ['Circle', 'Triangle', 'Square', 'Circle', 'Triangle', 'Square'],
       ],
     },
   ],
